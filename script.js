@@ -129,6 +129,12 @@ if (value) {
 // false boolean
 // NaN (not a number)
 
+// NaN (not a number)
+const a = 5;
+const b = undefined; // missing
+const result = a + b;
+console.log(result); // NaN
+
 // Section 7: Template Literal // Template String
 
 const firstName = "Dora";
