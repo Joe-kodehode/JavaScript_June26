@@ -1,146 +1,167 @@
-// Lesson 2: Conditionals
+// Lesson 3: Week 1 recap
 
-// Section 1: The typeof operator
+// Section 1: Variables, Data Types and Operators
 
-let myVariable = "42";
-console.log(typeof myVariable);
+// Scenario: An online store managing product details.
 
-// Section 2: If / else if / else
+const storeName = "Tech Haven"; // Variable storing a string data type
+const productName = "Wireless Earbuds"; // string
+let productPrice = 90; // Integer (whole number)
+let productQuantity = 4; // Integer
+let isInStock = true;
+const productTags = ["audio", "Wireless", "Accessory"]; // array
+let discount; // undefined
 
-// basic if statement
-let temperature = 1;
+console.log(productName);
+console.log(productPrice);
+console.log(productQuantity);
+console.log(isInStock);
+console.log(productTags);
+console.log(discount);
 
-if (temperature > 25) {
-  console.log("It's a hot day!");
-} else if (temperature > 15) {
-  console.log("it's a warm day");
-} else if (temperature > 0) {
-  console.log("It's a chilly day");
+// We sell one pair of earbuds
+productQuantity--;
+// productQuantity++;
+
+// Increase the price by 10
+productPrice = productPrice + 10;
+productPrice += 10;
+
+// Calculate the total cost for the available quantity.
+const totalValue = productPrice * productQuantity;
+console.log(totalValue);
+
+// Find the remainder when total value is divided by 50
+const remainder = totalValue % 50;
+console.log(remainder);
+
+// Section 2: Conditionals and Logical Operators
+
+// Give a different console.log() based on basket size
+// if greater than 300 = You get free delivery!
+// if greater than 250 = You're close to free delivery!
+// if less than 250 = Spend 300 to get free delivery.
+
+let basketSize = 249;
+
+if (basketSize >= 300) {
+  console.log("You get free delivery!");
+} else if (basketSize >= 250) {
+  console.log("You're close to get Free Delivery!");
 } else {
-  console.log("It's freezing!");
+  console.log("Spend 300 to get Free delivery!");
 }
 
-// Section 3: Logical Operators: AND (&&) and OR (||)
+// Logical AND (&&) Logical OR (||)
 
-let age = 20;
-let hasLicence = true;
+// give the user a console.log message of "You get a 15% discount!" IF:
 
-if (age >= 18 && hasLicence === true) {
-  console.log("You can drive!");
+// isInStock is true and either disount is set to true or productQuantity is less than 10
+
+// otherwise give them a message of "No discount applied"
+
+productQuantity = 15;
+isInStock = true;
+discount = true;
+
+// prettier-ignore
+if (isInStock && discount || productQuantity < 10) {
+  console.log(" You get 15% Discount");
 } else {
-  console.log("You can't drive!");
+  console.log("You do not get a discount!");
 }
 
-let day = "Hamburger";
+// Ternary Operator
 
-if (day === "Saturday" || day === "Sunday") {
-  console.log("It's the weekend! Yipee!");
-} else if (
-  day === "Monday" ||
-  day === "Tuesday" ||
-  day === "Wednesday" ||
-  day === "Thursday" ||
-  day === "Friday"
-) {
-  console.log("It's a weekday :(");
-} else {
-  console.log("Enter a real day...");
-}
+basketSize = 200;
 
-// D.R.Y. - Don't repeat yourself!
-
-// Using both && and || in the same check
-
-// Give a discount if the user has a referal AND it's their first shop.  OR if they are a premium member.
-
-let referal = true;
-let firstShop = true;
-let premiumMember = false;
-
-if ((referal && firstShop) || premiumMember) {
-  console.log("You get a discount!");
-} else {
-  console.log("No discount for you! Consider buying premium!");
-}
-
-// Section 4: Ternary Operator
-
-// Ternary is useful for simple if / else checks
-
-let isMember = false;
-// if (isMember) {
-//   console.log("Your fee is $5");
+// if (basketSize >= 250) {
+//   console.log("Free shipping");
 // } else {
-//   console.log("Your fee is $10");
+//   console.log("$15 shipping");
 // }
 
-let fee = isMember ? "$5" : "$10";
+let shippingCost = basketSize >= 250 ? "Free Shipping" : "$15 shipping";
 
-console.log("Your fee is:", fee);
+console.log(shippingCost);
 
-// Section 5: Switch Statement
+// Switch Statement
 
-// A switch statement checks a value against multiple cases
+let category = "accessory";
 
-let fruit = "hamburger";
-
-switch (fruit) {
-  case "orange":
-    console.log("Oranges are full of vitamin C!");
+switch (category) {
+  case "audio":
+    console.log("This product is part of our Audio department");
     break;
-  case "apple":
-    console.log("Apples are delicious!");
+  case "accessory":
+    console.log("This is in our Accessory section");
     break;
-  case "banana":
-    console.log("Bananas are a source of potassium!");
+  case "gadget":
+    console.log("This product is in our gadget collection");
     break;
   default:
-    console.log("unknown fruit detected");
+    console.log("Unknown item detected");
 }
 
-// Use if / else if → for complex or varied conditions
-// Use switch → for one variable with many fixed values
+// Section 3: typeof Operator and Truthy/Falsey values
 
-// Section 6: Truthy and Falsey values
+// Using the typeof operator to check data types:
+console.log(typeof storeName); // "string"
+console.log(typeof productPrice); // "number"
+console.log(typeof isInStock); // "boolean"
+console.log(typeof productTags); // "object" (arrays are objects in JavaScript)
 
-let value = NaN;
+// Demonstrating Truthy and Falsey values:
 
-if (value) {
-  console.log("This is true");
+// Example with an empty string (falsey)
+// Example with a non-empty string (truthy)
+const greeting = "Welcome!";
+if (greeting) {
+  console.log("Greeting detected");
 } else {
-  console.log("This is false");
+  console.log("No greeting detected");
 }
 
-// Truthy values
-// A string with content
-// A positive number
-// A negative number'
-// An array of values
-// An empty array
-// An object with values
-// An empty object
-// true boolean
+// Example with the number 0 (falsey)
+// Example with any other number (truthy)
+const testNumber = 0;
+if (testNumber) {
+  console.log("this number is truthy.");
+} else {
+  console.log("this number is falsey.");
+}
 
-// Falsey values
-// An empty string
-// 0
-// null
-// undefined
-// false boolean
-// NaN (not a number)
+// Section 4: Template Literal / Template String recap
+const firstName = "James";
+const lastName = "Bond";
+const city = "London";
+const country = "England";
 
-// NaN (not a number)
-const a = 5;
-const b = undefined; // missing
-const result = a + b;
-console.log(result); // NaN
+// prettier-ignore
+const welcomeMessage = "Welcome" + " " + firstName + " " + lastName + " " + "from" + " " + city + " " + country;
 
-// Section 7: Template Literal // Template String
+console.log(welcomeMessage);
 
-const firstName = "Dora";
-const lastName = "Explora";
-const fullName = firstName + " " + lastName;
+const betterWelcomeMessage = `Welcome ${firstName} ${lastName} from ${city} ${country}`;
 
-const betterFullName = `${firstName} ${lastName} is the persons name`;
+console.log(betterWelcomeMessage);
 
-console.log(betterFullName);
+// Section 5: Template Literal + Ternary
+
+basketSize = 200;
+
+// let freeDelivery;
+
+// if (basketSize >= 250) {
+//   freeDelivery = "are";
+// } else {
+//   freeDelivery = "aren't";
+// }
+
+// const deliveryCost = `You ${freeDelivery} eligible for free delivery`;
+
+const freeDelivery = basketSize >= 250 ? "are" : "aren't";
+
+const deliveryCost = `You ${freeDelivery} eligible for free delivery`;
+
+console.log(deliveryCost);
