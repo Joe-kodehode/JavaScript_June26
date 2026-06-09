@@ -1,164 +1,93 @@
-// Lesson 4: Functions
+// Lesson 5: Methods (built-in functions)
 
-// A function is a block of code designed to do one specific task. It lets you write code once and reuse it, keeping your program clean and organized. However, the function won't do anything until you call it.
+// A method in JavaScript is a built-in function that you use with a specific type of data, like strings, numbers or arrays. It lets you do something with that data—like change it, check it, copy or access part of it. Some methods alter the original piece of data, others don't alter the original!
 
-// Section 1: Function declarations (aka function statements) and Hoisting
-sayHello();
+// Section 1: String Methods
+const text = "     Hello, JavaScript World World!     ";
+console.log(text);
+console.log(text.trim()); // removes whitespace from both ends of the string, does not alter the original.
+console.log(text.toUpperCase()); // converts the string to all uppercase
+console.log(text.toLowerCase()); // converts the string to all lowercase
+console.log(text.indexOf("JavaScript")); // returns the starting index of the passed in text
+console.log(text.slice(5, 10)); // extracts characters from index 5-10. The starting index is included, the end index is not included. Does not alter the original.
+console.log(text.replace("World", "Universe")); // replaces the first instance of the word "World" with "Universe"
+console.log(text.replaceAll("World", "Universe")); // replaces ALL instances of the word "World" with "Universe"
+console.log(text.charCodeAt(5)); // Returns the Unicode number of the character at index 5
+console.log(text.length); // returns the amount of characters in the given string. Starts at 1, not 0!! we're not checking index!
+console.log(text.repeat(3));
 
-function sayHello() {
-  console.log("Hello");
-}
+// Section 1.1: Converting a String into an Array
+console.log(text.trim().split(" "));
 
-sayHello();
-sayHello();
+// Section 1.2: Converting a String into a Number
+let numberString = "123.45xyz";
 
-// Section 2: Arrow functions (introduced in ES6, great for short, inline functions)
+console.log(Number(numberString)); // Returns the string turn into a number, returns NaN if any part is invalid.
+console.log(parseInt(numberString)); // Returns an integer, ignores deciamals and invalid characters
+console.log(parseFloat(numberString)); // Returns a float, ignores invalid characters
 
-const arrowFunction = () => {
-  console.log("Hello from the arrow function");
-};
+// Section 2: Array Methods
+const colors = ["Red", "Green", "Blue"];
 
-arrowFunction();
+console.log(colors.length); // returns the number of elements in the array (does not start at 0! has nothing to do with index!)
 
-// Section 3: Return and Scope
+colors.push("Yellow"); // adds "Yellow" to the end of the array
+console.log(colors);
+colors.pop(); // removes the last element in the array
+console.log(colors);
+// const poppedColor = colors.pop(); // You can store the removed element in a new variable (still removes it from the original!)
+colors.unshift("Purple"); // adds "Purple" to the beginning of the array
+console.log(colors);
+colors.shift(); // removes the first element in the array
+console.log(colors);
+colors.splice(0, 2, "Orange", "Pink"); // replaces elements in the array.  Syntax: splice(starting index, amount of elements to remove, elements to replace with)
+console.log(colors);
+const splicedColors = colors.toSpliced(1, 1, "Brown"); // Same as .splice() but does not alter the array, we can store the result in a new variable.
+console.log(colors);
+console.log(splicedColors);
+const unsortedArray = [3, 1, 4, 1, 5, 9, 5];
+console.log(unsortedArray.sort()); // sorts the array by numeric or alphabetical value
+const sortedArray = unsortedArray.toSorted(); // sorts the array, does not affect the original array but can be stored in a new variable.
+console.log(sortedArray);
+console.log(sortedArray[6]); // returns the element at index 6
+console.log(sortedArray.at(6)); // returns the element at index 6
+console.log(sortedArray.at(-2)); // returns the second last element
+const reversedArray = sortedArray.toReversed(); // reverses the array, does not affect the original, can be stored in a new variable
+console.log(reversedArray);
+console.log(sortedArray);
+sortedArray.reverse(); // reverse the original array.
+console.log(sortedArray);
 
-function functionOne() {
-  console.log("This function logs a message but does not return any data");
-}
+// Section 2.1: Converting an Array into a String
+console.log(colors);
+console.log(colors.join(" ")); // converts an array into a string with a space between each word
 
-functionOne();
+// Section 3: Number Methods
+const myNum = 3.239472394;
+console.log(myNum.toFixed(2)); // rounds the decimals to 2 places and turns it into a string.
+console.log(myNum.toExponential()); // returns a string with myNum in exponential notation.
+console.log(myNum.toString()); // returns our number turned into a string.
 
-function functionTwo() {
-  const myMessage = "This function returns a string";
-  return myMessage;
-}
+// Section 4: Chaining Methods Together
+// Example 1:
+const rawString = "    JavaScript is fun!    ";
+const processedString = rawString
+  .trim()
+  .replace("fun", "awesome")
+  .toUpperCase();
+console.log(processedString);
 
-const dataReturned = functionTwo();
+// Example 2:
+const words = ["HeLLo", "woRLd"];
+const fixedWords = words.join(" ").toLowerCase();
+console.log(fixedWords);
 
-console.log(dataReturned);
+// Example 3:
+// Take a number and round it to 2 decimals, convert it into a string, repeat the string twice.
+const numberExample = myNum.toFixed(2).repeat(2);
+console.log(numberExample);
 
-// Return
-// The return keyword in a function will return a piece of data.
-// The data is returned to the function call.
-// The return keyword will break us out of the function, any code in the function below "return" is inaccessable code.
-
-// Scope
-// Variables created inside a function are SCOPED to only exist inside that function
-// Variables created on the global scope are accessable anywhere, even in multiple functions.
-
-// Section 4: Functions with Parameters
-
-// Example 1 - Hard Coding
-function add() {
-  return 3 + 4;
-}
-console.log(add());
-
-// Example 2 - Soft Coding (dynamic)
-function minus(num1, num2) {
-  return num1 - num2;
-}
-console.log(minus(5, 7));
-console.log(minus(100, 31));
-console.log(minus(10000, 1));
-
-// Parameters go inside the brackets of the function name. They are like variables that store data passed in.
-
-// Arguments are the data we can pass into the parameters from the brackets of the function call.
-
-// Example 3 - A greeter function that uses parameters and template strings.
-
-const greeter = (time, name) => {
-  return `Good ${time} ${name}`;
-};
-
-console.log(greeter("Evening", "Henry"));
-console.log(greeter("Night", "Tom"));
-
-// Section 5: Implicit return in Arrow Functions
-// Implicit return means we can delete the return keyword and the curley brackets.
-// Implicit return only works if the arrow function is instantly returning and we only have 1 line of code.
-
-// const adder = (num1, num2) => {
-//   return num1 + num2;
-// };
-
-const adder = (num1, num2) => num1 + num2;
-
-console.log(adder(100, 450));
-
-// Section 6: Calculator function using Switch Statement
-
-function calculator(num1, num2, operator) {
-  switch (operator) {
-    case "+":
-      return num1 + num2;
-    case "-":
-      return num1 - num2;
-    case "*":
-      return num1 * num2;
-    case "/":
-      return num1 / num2;
-    default:
-      return "Invalid Operator";
-  }
-}
-
-console.log(calculator(100, 50, "*"));
-console.log(calculator(5, 120, "+"));
-console.log(calculator(10000, 20, "/"));
-
-// Section 7: Updating a global variable using a function
-
-let hp = 100;
-
-const updateHp = (direction, amount) => {
-  if (direction === "up") {
-    hp += amount;
-    if (hp > 200) {
-      hp = 200;
-    }
-  } else if (direction === "down") {
-    hp -= amount;
-    if (hp <= 0) {
-      console.log("You died, lmao");
-      hp = 100;
-    }
-  } else {
-    console.log("You've found a bug in our game!");
-  }
-};
-
-console.log(hp);
-updateHp("up", 500);
-console.log(hp);
-updateHp("down", 1000);
-console.log(hp);
-
-// function should be able to take in a number and a direction
-// if the direction is "up", increase the hp by the number
-// if the direction is "down", decrease the hp by the number
-
-// HP can not increase above 200 ✅
-// if hp reaches 0, console.log("You died") and reset hp to 100
-
-// Section 8: Using template literals and ternary in a function
-
-const fruits = ["Apple", "Banana", "Kiwi", "granateple", "pomegranite", "Pear"];
-
-// Make a function that checks if the passed in fruit is in the array or not and gives us a different message if it is/isn't
-
-// const checkItem = (fruit) => {
-//   if (fruits.includes(fruit)) {
-//     return `The array does include ${fruit}`;
-//   } else {
-//     return `The array doesn't include ${fruit}`;
-//   }
-// };
-
-const checkItem = (fruit) =>
-  `The array ${fruits.includes(fruit) ? "does" : "doesnt"} include ${fruit}`;
-
-console.log(checkItem("Pear"));
-console.log(checkItem("Steak"));
-console.log(checkItem("granateple"));
+// Sidequest: Rounding numbers
+console.log(Math.round(123.45)); // rounds a number to closest
+console.log(Math.ceil(123.45)); // rounds up
+console.log(Math.floor(123.45)); // rounds down
