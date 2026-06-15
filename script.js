@@ -1,141 +1,181 @@
-// Lesson 6: Functions and Methods recap
+// Lesson 7: Loops
 
-// Section 1: Check if a list includes an item (functions, ternary, array)
+// A loop is a way to repeat code without writing it multiple times.
 
-const shoppingList = ["milk", "bread", "tuna", "cheese", "lime"];
-const gamesList = [
-  "MTG",
-  "Baulder's Gate 3",
-  "Expedition 33",
-  "Mario Kart",
-  "Flexbox Froggy",
+// Section 1: Why we use loops!
+
+// D.R.Y. Don't repeat yourself!
+
+const names = ["Tom", "Eric", "Jessica", "Billy", "Henry"];
+
+// Without a loop (repeating ourselves)
+console.log(`Hei ${names[0]}`);
+console.log(`Hei ${names[1]}`);
+console.log(`Hei ${names[2]}`);
+
+// Section 2: The 'for loop'
+// where does the loop start; when does the loop end; what changes between each loop
+
+// With a loop (cleaner, dynamic, scaleable)
+for (let i = 0; i < names.length; i++) {
+  console.log(`Hei ${names[i]}`);
+}
+
+for (let i = 1; i <= 10; i += 2) {
+  console.log(`i is currently: ${i}`);
+}
+
+// reverse
+for (let i = names.length - 1; i >= 0; i--) {
+  console.log(`Hei ${names[i]}`);
+}
+
+// Section 3: Combining loops with Functions and Methods
+
+// Create a function with a loop to greet names in a messy array
+
+const people = ["alice", "    BOB    ", "chaRliE", "deBbY"];
+
+// Methods to remove whitespace and make lower case: .toLowerCase(), .trim()
+
+function greetAndClean(peopleArray) {
+  for (let i = 0; i < peopleArray.length; i++) {
+    console.log(peopleArray[i].trim().toLowerCase());
+  }
+}
+
+greetAndClean(people);
+
+// Create a function with a loop to combine strings in an array to give us one string
+
+function makeSentence(wordsArray) {
+  let sentence = "";
+
+  for (let i = 0; i < wordsArray.length; i++) {
+    sentence += wordsArray[i];
+    if (i < wordsArray.length - 1) {
+      sentence += " ";
+    }
+  }
+  return sentence;
+}
+
+console.log(makeSentence(["Loops", "are", "really", "useful"]));
+
+// Some methods have inbuilt loops! We can recreate what we just did but use the join method instead.
+function makeSentence2(wordsArray) {
+  return wordsArray.join(" ");
+}
+
+console.log(makeSentence2(["Loops", "are", "really", "useful"]));
+
+// Section 4: The 'for... of' loop
+
+// The 'for of' loop, loops over an array from start to finish. It gives us access to a variable which represents a different element in the array each loop.
+
+const colors = ["red", "green", "blue"];
+
+// What should the variable be named? Color
+
+for (let color of colors) {
+  console.log(color);
+}
+
+// Section 5: The 'While Loop'
+// Warning! We are now entering the infinitle loop danger zone!!
+
+// While loops are useful for when you don't know how many loops you need. (when it's unknown to the coder when the loop will end)
+let count = 1;
+
+while (count <= 5) {
+  console.log(`The current count is: ${count}`);
+  count++;
+}
+
+// Guessing game with a while loop and randomness!
+
+const secretNum = Math.floor(Math.random() * 10) + 1; // random num between 1-10
+
+let guess = 0;
+
+while (guess !== secretNum) {
+  guess++;
+  console.log(`Guessing: ${guess}`);
+  if (guess === secretNum) {
+    console.log(`Congratulations, you win! The number was ${secretNum}`);
+  }
+}
+
+// Section 6: Creating Arrays with Loops
+// make a function that returns an array filled with random numbers.
+
+function makeRandomArray(arrLength, range) {
+  const result = [];
+
+  for (let i = 0; i < arrLength; i++) {
+    const randomNumber = Math.floor(Math.random() * range) + 1;
+    result.push(randomNumber);
+  }
+  return result;
+}
+
+const bigRandomArray = makeRandomArray(100, 100);
+console.log(bigRandomArray);
+// console.log(makeRandomArray(20, 10));
+
+// Decide how long the array will be (how many random numbers)✅
+// Decide what range the numbers will be (1-20, 1-100 etc)✅
+
+// Section 7: Finding the biggest number in an array.
+
+const exampleNumArray = [5, 10, 3, 100, 34, 1];
+
+function findHighest(array) {
+  let biggestNum = 0;
+
+  for (let num of array) {
+    if (num > biggestNum) {
+      biggestNum = num;
+    }
+  }
+  return biggestNum;
+}
+
+console.log(findHighest(bigRandomArray));
+
+// Section 8: Using break and continue
+
+const moreNames = [
+  "Tom",
+  "Eric",
+  "Jessica",
+  "Scott",
+  "Anna",
+  "Carl",
+  "Elisabeth",
+  "Benny",
+  "Oliver",
+  "Andy",
+  "Jenny",
+  "Ashley",
+  "Erin",
+  "Patrick",
 ];
 
-function checkItem(item, array) {
-  const doesOrDoesnt = array.includes(item) ? "does" : "doesn't";
+// continue; lets us skip to the next loop.
+// Skip "Andy"
 
-  return `The list ${doesOrDoesnt} include ${item}`;
-}
-
-console.log(checkItem("milk", shoppingList));
-console.log(checkItem("fries", shoppingList));
-console.log(checkItem("MTG", gamesList));
-console.log(checkItem("Gears of War", gamesList));
-
-// Section 2: Convert a Sentence into Kebab Case (functions, methods)
-
-function toKebabCase(string) {
-  // return string.trim().toLowerCase().split(" ").join("-");
-  return string.trim().toLowerCase().replaceAll(" ", "-");
-}
-
-console.log(toKebabCase("   Hello World From JavaScript   "));
-
-// Section 3: Make a function to check if a word is a Palindrome(functions, methods)
-
-function isPalindrome(word) {
-  if (
-    word.toLowerCase() === word.split("").toReversed().join("").toLowerCase()
-  ) {
-    return `The word ${word} is a palindrome`;
-  } else {
-    return `The word ${word} is not a palindrome`;
+for (let name of moreNames) {
+  if (name === "Andy") {
+    continue;
   }
+  console.log(`Hello, ${name}`);
 }
 
-console.log(isPalindrome("Racecar")); // racecar is a palindrom
-console.log(isPalindrome("banana")); // banana is not a palindrome
-
-// Section 4: Shorten a string (functions, methods)
-
-function shortenString(string, maxLength) {
-  if (string.length > maxLength) {
-    return string.slice(0, maxLength) + "...";
-  } else {
-    return string;
+// break; lets us break out of the loop completely.
+for (let name of moreNames) {
+  if (name === "Erin") {
+    break;
   }
+  console.log(`Hello, ${name}`);
 }
-
-console.log(shortenString("This string is long and needs shortening", 10));
-
-console.log(shortenString("This string short", 15));
-
-// Section 5: Introduction to Math.random
-
-// Math.random() is a built-in JavaScript method that gives you a random number betwwen 0 (inclusive) and 1 (exclusive)
-
-// How to get a random number between 1-10
-
-// const randomNumber = Math.random(); // 0.0000 - 0.9999
-
-// const randomNumber = Math.random() * 10; // 0.0000 - 9.9999
-
-// const randomNumber = Math.floor(Math.random() * 10); // 0-9
-
-const randomNumber = Math.floor(Math.random() * 10) + 1; // 1-10
-
-console.log(randomNumber);
-
-// We can use Math.random() to get a random element from an Array!
-
-const pokemon = [
-  "pikachu",
-  "diglett",
-  "electrode",
-  "machop",
-  "magikarp",
-  "mew",
-  "blastoise",
-  "vaporeon",
-  "psyduck",
-  "meowth",
-  "bidoof",
-  "incineroar",
-  "jolteon",
-  "arceus",
-  "grovyle",
-  "pluzzel",
-  "jigglypuff",
-  "fridgey",
-  "ditto",
-  "trubbish",
-  "dialga",
-  "palkia",
-];
-
-// random number between 0 - the legnth of the array
-const ranNum = Math.floor(Math.random() * pokemon.length);
-console.log(ranNum);
-console.log(pokemon[ranNum]);
-
-// Section 6: Rock, Paper, Scissors game (function, switch case, Math.random())
-
-function rockPaperScissors(userAnswer, compAnswer) {
-  switch (userAnswer + compAnswer) {
-    case "rock" + "paper":
-    case "paper" + "scissors":
-    case "scissors" + "rock":
-      return "computer wins!";
-    case "paper" + "rock":
-    case "scissors" + "paper":
-    case "rock" + "scissors":
-      return "user wins!";
-    case "paper" + "paper":
-    case "scissors" + "scissors":
-    case "rock" + "rock":
-      return "draw!";
-    default:
-      return "error!";
-  }
-}
-
-const answerArray = ["rock", "paper", "scissors"];
-// Get a random number between 0-2
-const randomIndex = Math.floor(Math.random() * answerArray.length);
-// Get a random string from the answerArray array
-const computerAnswer = answerArray[randomIndex];
-const usersAnswer = "paper";
-
-console.log(usersAnswer);
-console.log(computerAnswer);
-console.log(rockPaperScissors(usersAnswer, computerAnswer));
