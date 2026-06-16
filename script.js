@@ -1,181 +1,189 @@
-// Lesson 7: Loops
+// Lesson 8: JavaScript Objects
 
-// A loop is a way to repeat code without writing it multiple times.
+// Section 1: What is an Object?
 
-// Section 1: Why we use loops!
+// An object is a data type that stores related data using key-value pairs.
 
-// D.R.Y. Don't repeat yourself!
+const person = {
+  name: "Alice",
+  age: 28,
+  job: "Designer",
+};
 
-const names = ["Tom", "Eric", "Jessica", "Billy", "Henry"];
+console.log(person); // log the entire object
+console.log(person.age); // log only the age using dot notation
+console.log(person["age"]); // log only the age using bracket notation
 
-// Without a loop (repeating ourselves)
-console.log(`Hei ${names[0]}`);
-console.log(`Hei ${names[1]}`);
-console.log(`Hei ${names[2]}`);
+// Dot vs bracket:
+// - Use dot when you know the key name at code time: person.name
+// - Use brackets when the key is dynamic or not a valid identifier: person[key]
 
-// Section 2: The 'for loop'
-// where does the loop start; when does the loop end; what changes between each loop
+// Section 2: Creating, Modifying and Deleting keys.
 
-// With a loop (cleaner, dynamic, scaleable)
-for (let i = 0; i < names.length; i++) {
-  console.log(`Hei ${names[i]}`);
+person.country = "Norway"; // create a new key-value pair
+person.job = "CEO"; // modifying an existing key's value
+delete person.age; // deletes a key-value pair
+
+console.log(person);
+
+// Section 3: Looping over an object using 'for in' loop
+
+// we use the 'for in' loop to loop over objects. It gives us access to they keys in our object, each loop a new key is stored in the "key" variable.
+
+const user = {
+  name: "Joe",
+  age: 38,
+  location: "Stavanger",
+  hobbies: "gaming",
+};
+
+for (let key in user) {
+  console.log(key); // logs the current loops key
+  console.log(user[key]); // logs the current keys value
 }
 
-for (let i = 1; i <= 10; i += 2) {
-  console.log(`i is currently: ${i}`);
+// Dynamic key access is useful when you don’t know the property name in advance, like when looping through an object or handling user input.
+
+// Section 4: Nested Objects and Arrays
+
+const userData = {
+  firstName: "Bob",
+  lastName: "Dickens",
+  age: 39,
+  job: "Builder",
+  hasLicense: true,
+  hobbies: ["handy-work", "drinking beer", "bird-watching"],
+  address: {
+    streetName: "Frontstreet",
+    streetNumber: 1,
+    postcode: 6969,
+  },
+};
+
+console.log(userData.hobbies[2]);
+console.log(userData.address.streetName);
+
+for (let key in userData) {
+  console.log(key);
+  console.log(userData[key]);
 }
 
-// reverse
-for (let i = names.length - 1; i >= 0; i--) {
-  console.log(`Hei ${names[i]}`);
-}
+// Section 5: Array of Objects (Object array)
 
-// Section 3: Combining loops with Functions and Methods
-
-// Create a function with a loop to greet names in a messy array
-
-const people = ["alice", "    BOB    ", "chaRliE", "deBbY"];
-
-// Methods to remove whitespace and make lower case: .toLowerCase(), .trim()
-
-function greetAndClean(peopleArray) {
-  for (let i = 0; i < peopleArray.length; i++) {
-    console.log(peopleArray[i].trim().toLowerCase());
-  }
-}
-
-greetAndClean(people);
-
-// Create a function with a loop to combine strings in an array to give us one string
-
-function makeSentence(wordsArray) {
-  let sentence = "";
-
-  for (let i = 0; i < wordsArray.length; i++) {
-    sentence += wordsArray[i];
-    if (i < wordsArray.length - 1) {
-      sentence += " ";
-    }
-  }
-  return sentence;
-}
-
-console.log(makeSentence(["Loops", "are", "really", "useful"]));
-
-// Some methods have inbuilt loops! We can recreate what we just did but use the join method instead.
-function makeSentence2(wordsArray) {
-  return wordsArray.join(" ");
-}
-
-console.log(makeSentence2(["Loops", "are", "really", "useful"]));
-
-// Section 4: The 'for... of' loop
-
-// The 'for of' loop, loops over an array from start to finish. It gives us access to a variable which represents a different element in the array each loop.
-
-const colors = ["red", "green", "blue"];
-
-// What should the variable be named? Color
-
-for (let color of colors) {
-  console.log(color);
-}
-
-// Section 5: The 'While Loop'
-// Warning! We are now entering the infinitle loop danger zone!!
-
-// While loops are useful for when you don't know how many loops you need. (when it's unknown to the coder when the loop will end)
-let count = 1;
-
-while (count <= 5) {
-  console.log(`The current count is: ${count}`);
-  count++;
-}
-
-// Guessing game with a while loop and randomness!
-
-const secretNum = Math.floor(Math.random() * 10) + 1; // random num between 1-10
-
-let guess = 0;
-
-while (guess !== secretNum) {
-  guess++;
-  console.log(`Guessing: ${guess}`);
-  if (guess === secretNum) {
-    console.log(`Congratulations, you win! The number was ${secretNum}`);
-  }
-}
-
-// Section 6: Creating Arrays with Loops
-// make a function that returns an array filled with random numbers.
-
-function makeRandomArray(arrLength, range) {
-  const result = [];
-
-  for (let i = 0; i < arrLength; i++) {
-    const randomNumber = Math.floor(Math.random() * range) + 1;
-    result.push(randomNumber);
-  }
-  return result;
-}
-
-const bigRandomArray = makeRandomArray(100, 100);
-console.log(bigRandomArray);
-// console.log(makeRandomArray(20, 10));
-
-// Decide how long the array will be (how many random numbers)✅
-// Decide what range the numbers will be (1-20, 1-100 etc)✅
-
-// Section 7: Finding the biggest number in an array.
-
-const exampleNumArray = [5, 10, 3, 100, 34, 1];
-
-function findHighest(array) {
-  let biggestNum = 0;
-
-  for (let num of array) {
-    if (num > biggestNum) {
-      biggestNum = num;
-    }
-  }
-  return biggestNum;
-}
-
-console.log(findHighest(bigRandomArray));
-
-// Section 8: Using break and continue
-
-const moreNames = [
-  "Tom",
-  "Eric",
-  "Jessica",
-  "Scott",
-  "Anna",
-  "Carl",
-  "Elisabeth",
-  "Benny",
-  "Oliver",
-  "Andy",
-  "Jenny",
-  "Ashley",
-  "Erin",
-  "Patrick",
+const products = [
+  { productName: "Shirt", productId: 1, stock: 32 },
+  { productName: "Pants", productId: 2, stock: 5 },
+  { productName: "Socks", productId: 3, stock: 22 },
 ];
 
-// continue; lets us skip to the next loop.
-// Skip "Andy"
+console.log(products[2].productName);
+console.log(products[1].stock);
 
-for (let name of moreNames) {
-  if (name === "Andy") {
-    continue;
-  }
-  console.log(`Hello, ${name}`);
+// Using a 'for of' loop, loop over the products array.
+// In the loop, create a message for each product.
+// In the console it should show:
+// "Shirt has a product ID of 1 and has 32 left in stock"
+// "Pants has a product ID of 2 and has 5 left in stock"
+// "Socks has a product ID of 3 and has 22 left in stock"
+
+for (let product of products) {
+  console.log(
+    `${product.productName} has a productID of ${product.productId} and has ${product.stock} left in stock`,
+  );
 }
 
-// break; lets us break out of the loop completely.
-for (let name of moreNames) {
-  if (name === "Erin") {
-    break;
-  }
-  console.log(`Hello, ${name}`);
+// Section 6: Descriptive senteces with Object
+
+const people = [
+  {
+    name: "Thomas",
+    isMale: true,
+    age: 23,
+    hobbies: ["cycling", "football", "pool"],
+  },
+  {
+    name: "Susan",
+    isMale: false,
+    age: 26,
+    hobbies: ["jogging", "travelling", "dancing"],
+  },
+  {
+    name: "Monica",
+    isMale: false,
+    age: 21,
+    hobbies: ["skateboarding", "guitar", "concerts"],
+  },
+  {
+    name: "Avery",
+    isMale: true,
+    age: 28,
+    hobbies: ["coding", "games", "memes"],
+  },
+  {
+    name: "Phillip",
+    isMale: true,
+    age: 24,
+    hobbies: ["boxing", "wrestling", "mma"],
+  },
+  {
+    name: "Otto",
+    isMale: true,
+    age: 36,
+    hobbies: ["movies"],
+  },
+  {
+    name: "Annabelle",
+    isMale: false,
+    age: 30,
+    hobbies: ["makeup", "fashion", "shopping"],
+  },
+  {
+    name: "Cathy",
+    isMale: false,
+    age: 18,
+    hobbies: [
+      "design",
+      "drawing",
+      "css",
+      "eating at reasturants",
+      "cinema",
+      "card games",
+    ],
+  },
+];
+
+// for of loop
+
+// "Thomas is 23 years old, a man who enjoys cycling"
+
+// if person.isMale comes back true "man"
+// if person.isMale comes back false "woman"
+
+for (let person of people) {
+  // let gender;
+
+  // if (person.isMale) {
+  //   gender = "man";
+  // } else {
+  //   gender = "woman";
+  // }
+
+  const gender = person.isMale ? "man" : "woman";
+
+  // a random number between 0-2 to be our random index for person.hobbies
+  const randomIndex = Math.floor(Math.random() * person.hobbies.length);
+
+  console.log(
+    `${person.name} is ${person.age} years old, a ${gender} who enjoys ${person.hobbies[randomIndex]}`,
+  );
 }
+
+// Section 7: Working with object data
+
+// calculate the total age of everyone added together
+
+let totalAge = 0;
+for (let person of people) {
+  totalAge += person.age;
+}
+console.log(totalAge);
