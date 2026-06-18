@@ -187,3 +187,21 @@ for (let person of people) {
   totalAge += person.age;
 }
 console.log(totalAge);
+
+// Section 8: Combining hobbies with spread syntax
+
+const allHobbies = [];
+
+for (let person of people) {
+  allHobbies.push(...person.hobbies);
+}
+
+console.log(allHobbies);
+
+// Adding new properties to Objects in an array
+
+for (let person of people) {
+  person.title = person.isMale ? "Mr" : "Ms";
+}
+
+console.log(people);
