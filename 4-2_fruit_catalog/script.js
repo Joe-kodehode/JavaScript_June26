@@ -5,56 +5,56 @@ const fruits = [
     name: "Apple",
     color: "Red",
     calories: 52,
-    pricePerKg: 3.5,
-    origin: "USA",
+    price: 3.5,
+    country: "USA",
     alt: "a red apple on a white background",
   },
   {
     name: "Banana",
     color: "Yellow",
     calories: 89,
-    pricePerKg: 1.2,
-    origin: "Ecuador",
+    price: 1.2,
+    country: "Ecuador",
     alt: "A fresh banana on a white background",
   },
   {
     name: "Orange",
     color: "Orange",
     calories: 47,
-    pricePerKg: 2.8,
-    origin: "Spain",
+    price: 2.8,
+    country: "Spain",
     alt: "lots of orange slices",
   },
   {
     name: "Strawberry",
     color: "Red",
     calories: 32,
-    pricePerKg: 6.0,
-    origin: "Mexico",
+    price: 6.0,
+    country: "Mexico",
     alt: "a pile of cut up strawberries",
   },
   {
     name: "Mango",
     color: "Orange",
     calories: 60,
-    pricePerKg: 4.0,
-    origin: "India",
+    price: 4.0,
+    country: "India",
     alt: "a stack of mangos",
   },
   {
     name: "Grapes",
     color: "Green",
     calories: 69,
-    pricePerKg: 2.5,
-    origin: "Italy",
+    price: 2.5,
+    country: "Italy",
     alt: "a heap of grapes",
   },
   {
     name: "Pineapple",
     color: "Brown",
     calories: 50,
-    pricePerKg: 3.0,
-    origin: "Costa Rica",
+    price: 3.0,
+    country: "Costa Rica",
     alt: "a pineapple cut in half",
   },
 ];
@@ -87,16 +87,35 @@ for (let fruit of fruits) {
   image.alt = fruit.alt;
   image.classList.add("fruit-image");
 
-  // place the h2, img in the article
-  card.append(title, image);
+  // Create a p tag for color and country, give it textContent and class
+  const info = document.createElement("p");
+  info.textContent = `Color: ${fruit.color}, Country: ${fruit.country}`;
+  info.classList.add("fruit-info");
 
+  // Create a p tag for calories, give it textContent and class
+  const calories = document.createElement("p");
+  calories.textContent = `Calories: ${fruit.calories} per 100g`;
+  calories.classList.add("fruit-calories");
+
+  // Create a p tag for price, give it textContent and class
+  const price = document.createElement("p");
+  price.textContent = `Price: ${fruit.price}kr per kg`;
+  price.classList.add("fruit-price");
+
+  // place the h2, img in the article
+  card.append(title, image, info, calories, price);
+
+  // Randomly decide if each fruit is on sale. 50% chance to be on sale.
+  fruit.onSale = Math.random() > 0.5 ? true : false;
+
+  if (fruit.onSale) {
+    const sale = document.createElement("p");
+    sale.textContent = `Sale Price: ${fruit.price / 2}kr per kg`;
+    sale.classList.add("salePrice");
+    price.classList.add("strikethrough");
+    card.append(sale);
+  }
   // place the article in the continer div
   container.append(card);
-
-  // C - create elements (h2, img, p, p, p)
-  // D - spice up our h2, img, p, p,p by using template literals to get the info from the fruit objects (color, country, calories, price)
-  // E - append our newly created h2, img, p, p, p to the article
-  // F - append the article to the container
+  console.log(fruit);
 }
-
-// Break until 13:10

@@ -53,9 +53,23 @@ h1 {
 }
 
 .fruit-info,
-.fruit-nutrition,
+.fruit-calories,
 .fruit-price {
   font-size: 14px;
   margin: 6px 0;
   color: #555;
+}
+
+.salePrice {
+  background-color: red;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+  padding: 10px;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+  color: grey;
 }
